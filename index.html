@@ -3,221 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NAHAR — Skincare Shop</title>
+  <title>NAHAR — Korean Skincare</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
     body {
-      font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #fff8f5;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdfdfc;
       color: #333;
     }
+
+    /* Header */
     header {
-     <header>
-  <img src="logo.png" alt="NAHAR Logo" style="width:120px; margin-top:10px;">
-  <h1>NAHAR</h1>
-  <p>Pure. Simple. Korean Skincare in Bangladesh</p>
-</header>
-;
+      text-align: center;
+      padding: 30px 20px;
+      background: #f5f2ef;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    header img {
+      width: 120px;
+      display: block;
+      margin: 0 auto 10px;
     }
     header h1 {
-      margin: 0;
-      font-size: 34px;
-      color: #b56576;
-      letter-spacing: 1px;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: #c97c5d;
+      margin: 5px 0;
     }
     header p {
       color: #6b705c;
-      margin: 6px 0 0;
+      font-size: 15px;
+      margin: 0;
     }
-    #cart-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #b56576;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    #cart-count {
-      background: #ffb4a2;
-      color: #fff;
-      border-radius: 50%;
-      padding: 2px 8px;
-      margin-left: 6px;
-    }
+
+    /* Products Grid */
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      padding: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
       max-width: 1200px;
-      margin: auto;
+      margin: 50px auto;
+      padding: 0 20px;
     }
+
     .card {
       background: #fff;
       border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       overflow: hidden;
-      transition: transform .2s ease;
-    }
-    .card:hover { transform: translateY(-6px); }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .card-body {
-      padding: 16px;
-      text-align: center;
-    }
-    .card-body h3 {
-      font-size: 17px;
-      margin: 0 0 6px;
-      color: #333;
-    }
-    .price {
-      color: #b56576;
-      font-weight: 700;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      background: #b56576;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background .2s;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .btn:hover { background: #8d4a5d; }
-    footer {
-      background: #ffe5d9;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-    }
-    /* Modal cart */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .close-btn {
-      float: right;
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>NAHAR</h1>
-    <p>Pure • Simple • Korean Skincare in Bangladesh</p>
-  </header>
-
-  <button id="cart-btn">🛒 Cart <span id="cart-count">0</span></button>
-
-  <section class="products" id="product-list"></section>
-
-  <footer>
-    <p>Payment: bKash • Nagad • Cash on Delivery</p>
-    <p>Contact: info@naharshop.com | © 2025 NAHAR</p>
-  </footer>
-
-  <!-- Cart Modal -->
-  <div id="cart-modal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" id="close-cart">✖</button>
-      <h2>Your Cart</h2>
-      <div id="cart-items"></div>
-      <p><strong>Total: ৳<span id="cart-total">0</span></strong></p>
-      <button class="btn" id="checkout">Checkout</button>
-    </div>
-  </div>
-
-  <script>
-    const products = [
-      { name: "Centella Glow Serum", price: 950, img: "https://images.unsplash.com/photo-1596464716121-9b3d10d1e9b7" },
-      { name: "COSRX Snail Repair Cream", price: 1200, img: "https://images.unsplash.com/photo-1612817159949-195b51e7f2b7" },
-      { name: "Green Tea Foam Cleanser", price: 750, img: "https://images.unsplash.com/photo-1612817159666-cd9449f3d7ed" },
-      { name: "Hydra Balance Toner", price: 890, img: "https://images.unsplash.com/photo-1612817158701-f8f87a412e42" },
-      { name: "UV Shield Sunscreen", price: 1050, img: "https://images.unsplash.com/photo-1600180758898-3f10c6b692d1" },
-      { name: "Niacinamide Essence", price: 990, img: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1" },
-      { name: "Collagen Ampoule", price: 1300, img: "https://images.unsplash.com/photo-1603297631959-9e7d8c216c6b" },
-      { name: "Calming Sheet Mask", price: 250, img: "https://images.unsplash.com/photo-1612817159929-d88a46c8d3f5" },
-      { name: "Peptide Eye Cream", price: 1150, img: "https://images.unsplash.com/photo-1612817159484-6abf0b7ab982" },
-      { name: "Berry Glow Lip Balm", price: 450, img: "https://images.unsplash.com/photo-1612817159191-9c10ed53a9f1" }
-    ];
-
-    const list = document.getElementById('product-list');
-    const cart = [];
-    const cartCount = document.getElementById('cart-count');
-    const cartModal = document.getElementById('cart-modal');
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-
-    products.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${p.img}" alt="${p.name}">
-        <div class="card-body">
-          <h3>${p.name}</h3>
-          <p class="price">৳${p.price}</p>
-          <button class="btn" onclick='addToCart("${p.name}", ${p.price})'>Add to Cart</button>
-        </div>`;
-      list.appendChild(card);
-    });
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      cartCount.textContent = cart.length;
-      alert(name + " added to cart!");
-    }
-
-    document.getElementById('cart-btn').onclick = () => {
-      cartModal.style.display = 'flex';
-      renderCart();
-    };
-    document.getElementById('close-cart').onclick = () => cartModal.style.display = 'none';
-
-    function renderCart() {
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.textContent = `${item.name} - ৳${item.price}`;
-        cartItems.appendChild(div);
-      });
-      cartTotal.textContent = total;
-    }
-
-    document.getElementById('checkout').onclick = () => {
-      const total = cart.reduce((sum, i) => sum + i.price, 0);
-      window.location.href = `mailto:info@naharshop.com?subject=New Order&body=Order Details:%0A${cart.map(i => i.name + ' - ৳' + i.price).join('%0A')}%0A%0ATotal: ৳${total}%0AName:%0APhone:%0AAddress:%0APayment: bKash/Nagad/COD`;
-    };
-  </script>
-</body>
-</html>
+      transition: transform 0.2s ease, bo
