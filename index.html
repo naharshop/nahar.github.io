@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAHAR — Skincare Shop</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #fafafa;
+      color: #222;
+    }
+    header {
+      background: #f5ebe0;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: #c97c5d;
+    }
+    header p {
+      margin: 5px 0 0;
+      color: #6b705c;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform .2s ease;
+    }
+    .card:hover { transform: translateY(-6px); }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 16px;
+      text-align: center;
+    }
+    .card-body h3 {
+      font-size: 18px;
+      margin: 0 0 6px;
+      color: #333;
+    }
+    .price {
+      color: #c97c5d;
+      font-weight: 700;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #c97c5d;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .btn:hover { background: #a86548; }
+    footer {
+      background: #f5ebe0;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NAHAR</h1>
+    <p>Pure. Simple. Korean Skincare in Bangladesh</p>
+  </header>
+
+  <section class="products">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1596464716121-9b3d10d1e9b7" alt="Serum">
+      <div class="card-body">
+        <h3>Centella Glow Serum</h3>
+        <p class="price">৳950</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817159949-195b51e7f2b7" alt="Cream">
+      <div class="card-body">
+        <h3>Snail Repair Cream</h3>
+        <p class="price">৳1200</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817159666-cd9449f3d7ed" alt="Foam Cleanser">
+      <div class="card-body">
+        <h3>Green Tea Foam Cleanser</h3>
+        <p class="price">৳750</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817158701-f8f87a412e42" alt="Toner">
+      <div class="card-body">
+        <h3>Hydra Balance Toner</h3>
+        <p class="price">৳890</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600180758898-3f10c6b692d1" alt="Sunscreen">
+      <div class="card-body">
+        <h3>UV Shield Sunscreen</h3>
+        <p class="price">৳1050</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1" alt="Essence">
+      <div class="card-body">
+        <h3>Niacinamide Essence</h3>
+        <p class="price">৳990</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1603297631959-9e7d8c216c6b" alt="Ampoule">
+      <div class="card-body">
+        <h3>Collagen Ampoule</h3>
+        <p class="price">৳1300</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817159929-d88a46c8d3f5" alt="Mask">
+      <div class="card-body">
+        <h3>Calming Sheet Mask</h3>
+        <p class="price">৳250</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817159484-6abf0b7ab982" alt="Eye Cream">
+      <div class="card-body">
+        <h3>Peptide Eye Cream</h3>
+        <p class="price">৳1150</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1612817159191-9c10ed53a9f1" alt="Lip Balm">
+      <div class="card-body">
+        <h3>Berry Glow Lip Balm</h3>
+        <p class="price">৳450</p>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Payment: bKash • Nagad • Cash on Delivery</p>
+    <p>Contact: info@naharshop.com | © 2025 NAHAR</p>
+  </footer>
+</body>
+</html>
