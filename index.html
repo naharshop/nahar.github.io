@@ -1,83 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NAHAR — Skincare Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #fafafa;
-      color: #222;
+      background: #fdfaf6;
+      color: #333;
     }
     header {
-      background: #f5ebe0;
-      padding: 20px 40px;
+      background: #f7ede2;
+      padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
     }
     header h1 {
+      font-size: 36px;
       margin: 0;
-      font-size: 32px;
-      letter-spacing: 2px;
-      color: #c97c5d;
+      color: #d17856;
+      letter-spacing: 3px;
     }
     header p {
-      margin: 5px 0 0;
+      margin: 8px 0 0;
       color: #6b705c;
+      font-size: 15px;
     }
+
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      padding: 40px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      padding: 50px 30px;
+      max-width: 1250px;
       margin: auto;
     }
     .card {
       background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
       overflow: hidden;
-      transition: transform .2s ease;
+      transition: all 0.3s ease;
     }
-    .card:hover { transform: translateY(-6px); }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
     .card img {
       width: 100%;
-      height: 200px;
+      height: 240px;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .card:hover img {
+      transform: scale(1.03);
     }
     .card-body {
-      padding: 16px;
+      padding: 20px;
       text-align: center;
     }
     .card-body h3 {
       font-size: 18px;
-      margin: 0 0 6px;
       color: #333;
+      margin: 0 0 6px;
     }
     .price {
-      color: #c97c5d;
-      font-weight: 700;
+      color: #d17856;
+      font-weight: 600;
+      font-size: 16px;
     }
     .btn {
       display: inline-block;
-      margin-top: 10px;
-      background: #c97c5d;
+      margin-top: 12px;
+      background: #d17856;
       color: white;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 8px;
       text-decoration: none;
-      transition: background .2s;
+      transition: background 0.3s ease;
     }
-    .btn:hover { background: #a86548; }
+    .btn:hover {
+      background: #b86145;
+    }
+
     footer {
-      background: #f5ebe0;
-      padding: 20px;
+      background: #f7ede2;
+      padding: 25px;
       text-align: center;
-      font-size: 14px;
       color: #555;
+      font-size: 15px;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -100,7 +121,7 @@
     <div class="card">
       <img src="https://images.unsplash.com/photo-1612817159949-195b51e7f2b7" alt="Cream">
       <div class="card-body">
-        <h3>cosrx Snail Repair Cream</h3>
+        <h3>COSRX Snail Repair Cream</h3>
         <p class="price">৳1200</p>
         <a href="#" class="btn">Add to Cart</a>
       </div>
@@ -180,7 +201,7 @@
   </section>
 
   <footer>
-    <p>Payment: bKash • Nagad • Cash on Delivery</p>
+    <p>Payment Methods: bKash • Nagad • Cash on Delivery</p>
     <p>Contact: info@naharshop.com | © 2025 NAHAR</p>
   </footer>
 </body>
