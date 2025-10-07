@@ -1,208 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAHAR — Skincare Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #fdfaf6;
+      background: #fff8f5;
       color: #333;
     }
     header {
-      background: #f7ede2;
-      padding: 30px 20px;
+      background: linear-gradient(135deg, #ffe5d9, #fad2e1);
+      padding: 25px;
       text-align: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     header h1 {
-      font-size: 36px;
       margin: 0;
-      color: #d17856;
-      letter-spacing: 3px;
+      font-size: 34px;
+      color: #b56576;
+      letter-spacing: 1px;
     }
     header p {
-      margin: 8px 0 0;
       color: #6b705c;
-      font-size: 15px;
+      margin: 6px 0 0;
     }
-
+    #cart-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #b56576;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #cart-count {
+      background: #ffb4a2;
+      color: #fff;
+      border-radius: 50%;
+      padding: 2px 8px;
+      margin-left: 6px;
+    }
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 28px;
-      padding: 50px 30px;
-      max-width: 1250px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      max-width: 1200px;
       margin: auto;
     }
     .card {
       background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: transform .2s ease;
     }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
+    .card:hover { transform: translateY(-6px); }
     .card img {
       width: 100%;
-      height: 240px;
+      height: 200px;
       object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .card:hover img {
-      transform: scale(1.03);
     }
     .card-body {
-      padding: 20px;
+      padding: 16px;
       text-align: center;
     }
     .card-body h3 {
-      font-size: 18px;
-      color: #333;
+      font-size: 17px;
       margin: 0 0 6px;
+      color: #333;
     }
     .price {
-      color: #d17856;
-      font-weight: 600;
-      font-size: 16px;
+      color: #b56576;
+      font-weight: 700;
     }
     .btn {
       display: inline-block;
-      margin-top: 12px;
-      background: #d17856;
+      margin-top: 10px;
+      background: #b56576;
       color: white;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
       text-decoration: none;
-      transition: background 0.3s ease;
+      transition: background .2s;
+      cursor: pointer;
+      font-weight: 600;
     }
-    .btn:hover {
-      background: #b86145;
-    }
-
+    .btn:hover { background: #8d4a5d; }
     footer {
-      background: #f7ede2;
-      padding: 25px;
+      background: #ffe5d9;
+      padding: 20px;
       text-align: center;
+      font-size: 14px;
       color: #555;
-      font-size: 15px;
-      margin-top: 40px;
     }
-    footer p {
-      margin: 5px 0;
+    /* Modal cart */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .close-btn {
+      float: right;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>NAHAR</h1>
-    <p>Pure. Simple. Korean Skincare in Bangladesh</p>
+    <p>Pure • Simple • Korean Skincare in Bangladesh</p>
   </header>
 
-  <section class="products">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1596464716121-9b3d10d1e9b7" alt="Serum">
-      <div class="card-body">
-        <h3>Centella Glow Serum</h3>
-        <p class="price">৳950</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
+  <button id="cart-btn">🛒 Cart <span id="cart-count">0</span></button>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817159949-195b51e7f2b7" alt="Cream">
-      <div class="card-body">
-        <h3>COSRX Snail Repair Cream</h3>
-        <p class="price">৳1200</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817159666-cd9449f3d7ed" alt="Foam Cleanser">
-      <div class="card-body">
-        <h3>Green Tea Foam Cleanser</h3>
-        <p class="price">৳750</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817158701-f8f87a412e42" alt="Toner">
-      <div class="card-body">
-        <h3>Hydra Balance Toner</h3>
-        <p class="price">৳890</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1600180758898-3f10c6b692d1" alt="Sunscreen">
-      <div class="card-body">
-        <h3>UV Shield Sunscreen</h3>
-        <p class="price">৳1050</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1" alt="Essence">
-      <div class="card-body">
-        <h3>Niacinamide Essence</h3>
-        <p class="price">৳990</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1603297631959-9e7d8c216c6b" alt="Ampoule">
-      <div class="card-body">
-        <h3>Collagen Ampoule</h3>
-        <p class="price">৳1300</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817159929-d88a46c8d3f5" alt="Mask">
-      <div class="card-body">
-        <h3>Calming Sheet Mask</h3>
-        <p class="price">৳250</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817159484-6abf0b7ab982" alt="Eye Cream">
-      <div class="card-body">
-        <h3>Peptide Eye Cream</h3>
-        <p class="price">৳1150</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1612817159191-9c10ed53a9f1" alt="Lip Balm">
-      <div class="card-body">
-        <h3>Berry Glow Lip Balm</h3>
-        <p class="price">৳450</p>
-        <a href="#" class="btn">Add to Cart</a>
-      </div>
-    </div>
-  </section>
+  <section class="products" id="product-list"></section>
 
   <footer>
-    <p>Payment Methods: bKash • Nagad • Cash on Delivery</p>
+    <p>Payment: bKash • Nagad • Cash on Delivery</p>
     <p>Contact: info@naharshop.com | © 2025 NAHAR</p>
   </footer>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-cart">✖</button>
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <p><strong>Total: ৳<span id="cart-total">0</span></strong></p>
+      <button class="btn" id="checkout">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Centella Glow Serum", price: 950, img: "https://images.unsplash.com/photo-1596464716121-9b3d10d1e9b7" },
+      { name: "COSRX Snail Repair Cream", price: 1200, img: "https://images.unsplash.com/photo-1612817159949-195b51e7f2b7" },
+      { name: "Green Tea Foam Cleanser", price: 750, img: "https://images.unsplash.com/photo-1612817159666-cd9449f3d7ed" },
+      { name: "Hydra Balance Toner", price: 890, img: "https://images.unsplash.com/photo-1612817158701-f8f87a412e42" },
+      { name: "UV Shield Sunscreen", price: 1050, img: "https://images.unsplash.com/photo-1600180758898-3f10c6b692d1" },
+      { name: "Niacinamide Essence", price: 990, img: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1" },
+      { name: "Collagen Ampoule", price: 1300, img: "https://images.unsplash.com/photo-1603297631959-9e7d8c216c6b" },
+      { name: "Calming Sheet Mask", price: 250, img: "https://images.unsplash.com/photo-1612817159929-d88a46c8d3f5" },
+      { name: "Peptide Eye Cream", price: 1150, img: "https://images.unsplash.com/photo-1612817159484-6abf0b7ab982" },
+      { name: "Berry Glow Lip Balm", price: 450, img: "https://images.unsplash.com/photo-1612817159191-9c10ed53a9f1" }
+    ];
+
+    const list = document.getElementById('product-list');
+    const cart = [];
+    const cartCount = document.getElementById('cart-count');
+    const cartModal = document.getElementById('cart-modal');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p class="price">৳${p.price}</p>
+          <button class="btn" onclick='addToCart("${p.name}", ${p.price})'>Add to Cart</button>
+        </div>`;
+      list.appendChild(card);
+    });
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      cartCount.textContent = cart.length;
+      alert(name + " added to cart!");
+    }
+
+    document.getElementById('cart-btn').onclick = () => {
+      cartModal.style.display = 'flex';
+      renderCart();
+    };
+    document.getElementById('close-cart').onclick = () => cartModal.style.display = 'none';
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.textContent = `${item.name} - ৳${item.price}`;
+        cartItems.appendChild(div);
+      });
+      cartTotal.textContent = total;
+    }
+
+    document.getElementById('checkout').onclick = () => {
+      const total = cart.reduce((sum, i) => sum + i.price, 0);
+      window.location.href = `mailto:info@naharshop.com?subject=New Order&body=Order Details:%0A${cart.map(i => i.name + ' - ৳' + i.price).join('%0A')}%0A%0ATotal: ৳${total}%0AName:%0APhone:%0AAddress:%0APayment: bKash/Nagad/COD`;
+    };
+  </script>
 </body>
 </html>
