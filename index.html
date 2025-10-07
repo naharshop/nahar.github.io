@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NAHAR — Korean Skincare</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f4f4; --card:#fff; --muted:#6b7078; --accent:#111; --soft:#dcdcdc;
+    --radius:12px; --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#f7f7f8,#efefef);color:#111}
+  .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+  header{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand img{width:72px;height:72px;object-fit:contain;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+  .brand h1{margin:0;font-size:20px;letter-spacing:2px}
+  .brand p{margin:0;font-size:13px;color:var(--muted)}
+  nav{display:flex;gap:12px;align-items:center}
+  .btn{background:var(--accent);color:#fff;padding:9px 14px;border-radius:10px;text-decoration:none;font-weight:600;border:none;cursor:pointer}
+  .ghost{background:transparent;color:var(--accent);border:1px solid var(--soft);padding:8px 12px;border-radius:10px;cursor:pointer}
+  .cart-btn{position:relative;display:flex;align-items:center;gap:8px}
+  .cart-count{position:absolute;top:-8px;right:-8px;background:#333;color:#fff;padding:4px 8px;border-radius:999px;font-size:12px}
+  .hero{margin:18px 0;padding:18px;border-radius:16px;background:linear-gradient(90deg,#ffffff,#fafafa);display:flex;gap:18px;align-items:center;box-shadow:0 10px 30px rgba(10,20,40,0.04)}
+  .hero .left{flex:1}
+  .hero h2{margin:0 0 6px;font-size:1.4rem}
+  .hero p{margin:0;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+  .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 8px 18px rgba(10,20,40,0.04);display:flex;flex-direction:column;gap:10px}
+  .thumb{height:200px;border-radius:10px;overflow:hidden;background:#f3f3f3;display:flex;align-items:center;justify-content:center}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .title{font-weight:700;margin:0;font-size:15px}
+  .desc{color:var(--muted);font-size:13px;margin:0}
+  .price{font-weight:800;font-size:16px;color:var(--accent)}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  footer{margin-top:28px;padding:18px;border-radius:12px;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 6px 18px rgba(10,20,40,0.03)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* cart modal */
+  .modal{position:fixed;inset:0;background:rgba(7,12,20,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+  .modal.open{display:flex}
+  .modal-card{background:#fff;padding:18px;border-radius:12px;width:100%;max-width:720px;box-shadow:0 20px 60px rgba(10,20,40,0.25)}
+  .cart-list{max-height:320px;overflow:auto;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .cart-item{display:flex;gap:10px;align-items:center}
+  .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+  .cart-actions{display:flex;gap:8px;align-items:center}
+
+  /* checkout form */
+  .checkout-form{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .checkout-form input, .checkout-form textarea, .checkout-form select {padding:10px;border-radius:8px;border:1px solid var(--soft);width:100%;font-size:14px}
+  .row2{display:flex;gap:10px}
+  .row2 > *{flex:1}
+
+  @media (max-width:640px){
+    header{flex-direction:column;align-items:flex-start;gap:12px}
+    .hero{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#">
+        <img src="logo.png" alt="NAHAR logo">
+        <div>
+          <h1>NAHAR</h1>
+          <p class="small">Shine Like Seoul • Premium Korean Skincare</p>
+        </div>
+      </a>
+
+      <nav>
+        <button id="openCartBtn" class="btn cart-btn" title="View cart">Cart <span id="cartCount" class="cart-count">0</span></button>
+        <a class="ghost" href="#products">Shop</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="left">
+        <h2>Hydrate, Repair & Glow Naturally</h2>
+        <p>Curated Korean skincare items — ampoules, serums & lightweight sunscreens.</p>
+      </div>
+      <img src="serum.jpeg" alt="feature" style="width:160px;height:120px;border-radius:10px;object-fit:cover">
+    </section>
+
+    <main id="productsSection">
+      <div id="products" class="grid" aria-live="polite"></div>
+    </main>
+
+    <footer>
+      <div>
+        <strong>Contact</strong>
+        <div class="small">Email: <a id="shopEmail" href="mailto:info@nahar.com">info@nahar.com</a></div>
+        <div class="small">Dhaka, Bangladesh</div>
+      </div>
+      <div class="small">Payment: Cash on Delivery • bKash • Nagad</div>
+    </footer>
+  </div>
+
+  <!-- CART MODAL -->
+  <div id="cartModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>Your Cart</h3>
+        <button id="closeCart" style="background:transparent;border:none;font-size:18px;cursor:pointer">✕</button>
+      </div>
+
+      <div id="cartList" class="cart-list"></div>
+
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div><strong>Total:</strong> ৳<span id="cartTotal">0.00</span></div>
+        <div style="display:flex;gap:8px">
+          <button id="clearCart" class="ghost" style="padding:8px 12px;border-radius:8px">Clear</button>
+          <button id="showCheckout" class="btn">Checkout</button>
+        </div>
+      </div>
+
+      <!-- checkout -->
+      <div id="checkoutBox" style="display:none;margin-top:14px">
+        <h4>Checkout — Delivery & Payment</h4>
+        <form id="checkoutForm" class="checkout-form">
+          <input id="custName" placeholder="Full name" required>
+          <input id="custPhone" placeholder="Phone number" required>
+          <textarea id="custAddress" rows="2" placeholder="Delivery address" required></textarea>
+          <label style="font-size:13px;color:var(--muted)">Payment method</label>
+          <select id="payMethod">
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="bKash">bKash (Send to XXXXX)</option>
+            <option value="Nagad">Nagad (Send to XXXXX)</option>
+          </select>
+
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button type="button" id="placeOrderEmail" class="btn" style="flex:1">Place Order (Email)</button>
+            <button type="button" id="placeOrderWA" class="btn" style="flex:1;background:linear-gradient(90deg,#11cdef,#0077cc)">Place Order (WhatsApp)</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ====== CONFIG: change these to your real contact values ====== */
+const SHOP_EMAIL = 'info@nahar.com';         // ← change to your real email to receive orders
+const WHATSAPP_NUMBER = '+8801XXXXXXXXX';    // ← change to your number (international format, e.g. +8801XXXXXXXXX)
+/* ============================================================= */
+
+/* ====== PRODUCTS: update image filenames to match your uploaded files ====== */
+const products = [
+  {id:'p1', title:'Centella Glow Serum', price:950, img:'serum.jpeg', desc:'Hydrating & brightening serum.'},
+  {id:'p2', title:'COSRX Low pH Gel Cleanser', price:850, img:'cleanser.jpeg', desc:'Gentle morning cleanser.'},
+  {id:'p3', title:'Madagascar Centella Sun Serum', price:1200, img:'sunscreen.jpeg', desc:'Lightweight SPF & hydration.'},
+  {id:'p4', title:'COSRX Snail Repair Cream', price:1200, img:'cosrx.png', desc:'Repair & nourish skin.'},
+  // add more items here if you upload images
+];
+
+const productsEl = document.getElementById('products');
+function renderProducts(list){
+  productsEl.innerHTML = '';
+  list.forEach(p=>{
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="thumb"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
+      <div>
+        <h3 class="title">${p.title}</h3>
+        <p class="desc">${p.desc}</p>
+      </div>
+      <div class="row">
+        <div>
+          <div class="price">৳${p.price.toFixed(0)}</div>
+          <div class="small">In stock</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <button class="btn add" data-id="${p.id}">Add to cart</button>
+          <button class="ghost" onclick="quickView('${p.id}')">Details</button>
+        </div>
+      </div>
+    `;
+    productsEl.appendChild(card);
+  });
+  document.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>addToCart(b.dataset.id)));
+}
+renderProducts(products);
+
+/* ===== CART (localStorage) ===== */
+const CART_KEY = 'nahar_cart_v2';
+function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY) || '{}'); }
+function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartUI(); }
+function addToCart(id){
+  const cart = getCart();
+  cart[id] = (cart[id]||0) + 1;
+  saveCart(cart);
+  toast('Added to cart');
+}
+function updateCartUI(){
+  const cart = getCart();
+  const count = Object.values(cart).reduce((s,n)=>s+n,0);
+  document.getElementById('cartCount').textContent = count;
+}
+updateCartUI();
+
+/* ===== CART MODAL + render cart list ===== */
+const openCartBtn = document.getElementById('openCartBtn');
+const cartModal = document.getElementById('cartModal');
+const closeCart = document.getElementById('closeCart');
+const cartList = document.getElementById('cartList');
+const cartTotalEl = document.getElementById('cartTotal');
+const clearCartBtn = document.getElementById('clearCart');
+const showCheckoutBtn = document.getElementById('showCheckout');
+const checkoutBox = document.getElementById('checkoutBox');
+
+openCartBtn.addEventListener('click', showCart);
+closeCart.addEventListener('click', ()=>{ cartModal.classList.remove('open'); checkoutBox.style.display='none'; });
+clearCartBtn.addEventListener('click', ()=>{ localStorage.removeItem(CART_KEY); updateCartUI(); renderCart(); });
+
+function renderCart(){
+  const cart = getCart();
+  cartList.innerHTML = '';
+  const ids = Object.keys(cart);
+  if(!ids.length){
+    cartList.innerHTML = '<div class="small">Your cart is empty.</div>';
+    cartTotalEl.textContent = '0.00';
+    return;
+  }
+  let total = 0;
+  ids.forEach(id=>{
+    const qty = cart[id];
+    const p = products.find(x=>x.id===id);
+    if(!p) return;
+    total += p.price * qty;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${p.img}" alt="${p.title}">
+      <div style="flex:1">
+        <div style="font-weight:700">${p.title}</div>
+        <div class="small">৳${p.price.toFixed(0)} × ${qty}</div>
+      </div>
+      <div class="cart-actions">
+        <button class="ghost small" onclick="changeQty('${id}', ${Math.max(1, qty-1)})">-</button>
+        <button class="ghost small" onclick="changeQty('${id}', ${qty+1})">+</button>
+        <button class="ghost small" onclick="removeItem('${id}')">Remove</button>
+      </div>
+    `;
+    cartList.appendChild(div);
+  });
+  cartTotalEl.textContent = total.toFixed(0);
+}
+
+function showCart(){ renderCart(); cartModal.classList.add('open'); }
+function changeQty(id, qty){ const c=getCart(); if(qty<=0){ delete c[id]; } else { c[id]=qty; } saveCart(c); renderCart(); }
+function removeItem(id){ const c=getCart(); delete c[id]; saveCart(c); renderCart(); }
+
+/* quick details */
+function quickView(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return alert('Product not found');
+  alert(p.title + "\n\n" + p.desc + "\n\nPrice: ৳" + p.price.toFixed(0));
+}
+
+/* simple toast */
+function toast(msg){ alert(msg); }
+
+/* ===== CHECKOUT: show checkout form ===== */
+showCheckoutBtn.addEventListener('click', ()=>{ checkoutBox.style.display='block'; });
+
+/* ===== PLACE ORDER (Email) ===== */
+document.getElementById('placeOrderEmail').addEventListener('click', ()=>{
+  const cart = getCart();
+  if(!Object.keys(cart).length){ return alert('Your cart is empty'); }
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pay = document.getElementById('payMethod').value;
+  if(!name || !phone || !address) return alert('Please fill name, phone and address');
+  // build order body
+  let body = `New Order from NAHAR%0A%0A`;
+  let total = 0;
+  Object.keys(cart).forEach(id=>{
+    const p = products.find(x=>x.id===id);
+    const qty = cart[id];
+    body += `${p.title} x ${qty} - ৳${(p.price*qty).toFixed(0)}%0A`;
+    total += p.price*qty;
+  });
+  body += `%0ATotal: ৳${total.toFixed(0)}%0A%0A`;
+  body += `Name: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AAddress: ${encodeURIComponent(address)}%0APayment: ${encodeURIComponent(pay)}%0A`;
+  // construct mailto
+  const mailto = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent('New Order from NAHAR')}&body=${body}`;
+  // open mail client
+  window.location.href = mailto;
+});
+
+/* ===== PLACE ORDER (WhatsApp) ===== */
+document.getElementById('placeOrderWA').addEventListener('click', ()=>{
+  const cart = getCart();
+  if(!Object.keys(cart).length){ return alert('Your cart is empty'); }
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pay = document.getElementById('payMethod').value;
+  if(!name || !phone || !address) return alert('Please fill name, phone and address');
+  let text = `New Order from NAHAR%0A%0A`;
+  let total = 0;
+  Object.keys(cart).forEach(id=>{
+    const p = products.find(x=>x.id===id);
+    const qty = cart[id];
+    text += `${p.title} x ${qty} - ৳${(p.price*qty).toFixed(0)}%0A`;
+    total += p.price*qty;
+  });
+  text += `%0ATotal: ৳${total.toFixed(0)}%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AAddress: ${encodeURIComponent(address)}%0APayment: ${encodeURIComponent(pay)}%0A`;
+  const wa = `https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g,'')}?text=${text}`;
+  window.open(wa,'_blank');
+});
+
+/* ensure UI initial */
+renderCart();
+updateCartUI();
+</script>
+</body>
+</html>
